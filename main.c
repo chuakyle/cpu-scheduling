@@ -5,9 +5,9 @@ int main()
     FILE *pText;
     char fileName[50] = "sample";
     int i = 0;
-    int numAlgo[50];
-    int numPro[50];
-    int timeSlice[50];
+    int X[50]; // Storage for first column of text input
+    int Y[50]; // Storage for second column of text input
+    int Z[50]; // Storage for third column of text input
 
 
     //printf("Input file name: ");
@@ -28,11 +28,11 @@ int main()
 
     printf("\nFile found!\n");
     
-    while(fscanf(pText, "%d %d %d", &numAlgo[i], &numPro[i], &timeSlice[i]) == 3) {
+    while(fscanf(pText, "%d %d %d", &X[i], &Y[i], &Z[i]) == 3) {
 
-        printf("Algo %d: %d\n", i, numAlgo[i]);
-        printf("numpro %d: %d\n", i, numPro[i]);
-        printf("timeslice %d: %d\n", i, timeSlice[i]);
+        printf("X %d: %d\n", i, X[i]);
+        printf("Y %d: %d\n", i, Y[i]);
+        printf("Z %d: %d\n", i, Z[i]);
 
         i++;
     }
