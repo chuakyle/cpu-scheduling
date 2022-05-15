@@ -12,9 +12,10 @@ void sjf(process processes[], int numPro)
     // Sort burst time in ascending order
     for (i = 0; i < numPro; i++)
     {
+        pos = i;
         for (j = i + 1; j < numPro; j++)
         {
-            if (processes[j].burstTime < processes[i].burstTime)
+            if (processes[j].burstTime < processes[pos].burstTime)
                 pos = j;
         }
 
@@ -40,8 +41,10 @@ void sjf(process processes[], int numPro)
     }
     aveWaitingTime = totalWaitingTime / numPro;
 
+    // print output
     for (i = 0; i < numPro; i++)
     {
         printf("P[%d] Start Time: %d End time: %d | Waiting time: %d\n", processes[i].ID, start[i], end[i], waitingTime[i]);
     }
+    printf("Average Waiting Time: %d", aveWaitingTime);
 }
