@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include <string.h>
+#include "struct.h"
 #include "fcfs.c"
 #include "srtf.c"
-#include "struct.h"
+#include "rr.c"
+#include "other.c"
 
 int main()
 {
@@ -76,7 +78,7 @@ int main()
         srtf(processes, Y[0]);
         break;
     case 3: // Round-Robin (RR)
-
+        rr(processes, Y[0]);
         break;
     }
 
