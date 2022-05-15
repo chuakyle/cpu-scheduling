@@ -73,10 +73,10 @@ int main()
         fcfs(processes, Y[0]);
         break;
     case 1: // Shortest-Job First (SJF)
-        // sjf(processes, Y[0]);
+        sjf(processes, Y[0]);
         break;
     case 2: // Shortest-Remaining-Time-First (SRTF)
-        // srtf(processes, Y[0]);
+        srtf(processes, Y[0]);
         break;
     case 3: // Round-Robin (RR)
         rr(processes, Y[0], Z[0]);
