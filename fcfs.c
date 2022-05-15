@@ -1,5 +1,10 @@
 #include "struct.h"
 
+// int comparator(const void *x, const void *y)
+// {
+// 	return (*(int *)x - *(int *)y);
+// }
+
 int comparator(const void *x, const void *y)
 {
 	return (*(int *)x - *(int *)y);
@@ -17,8 +22,10 @@ void fcfs(process processes[], int numPro) {
     int sortedAT[numPro];
     int totalWaitingTime = 0;
     process sortedProcesses[numPro];
-
-    int i, k;
+    int counter[numPro];
+    int numCounter = 0;
+    int checker = 1;
+    int i, k, c;
     
     // Get a copy of arrival time and process values
     for(i = 0; i < numPro; i++)
@@ -31,7 +38,17 @@ void fcfs(process processes[], int numPro) {
     // Sort all corresponding process values
     for(i = 0; i < numPro; i++) {
         for(k = 0; k < numPro; k++) {
-            if(sortedAT[i] == processes[k].arrivalTime) {
+            
+            for(c = 0; c < numCounter; c++) {   // Checks used IDs
+                
+                if(counter[c] == processes[k].ID) {
+                    checker = 0;
+                    break;
+                }
+
+                else checker = 1;
+            }
+            if(sortedAT[i] == processes[k].arrivalTime && checker) {
                 sortedProcesses[i].arrivalTime = processes[k].arrivalTime;
                 sortedProcesses[i].burstTime = processes[k].burstTime;
                 sortedProcesses[i].ID = processes[k].ID;
@@ -39,8 +56,12 @@ void fcfs(process processes[], int numPro) {
                 // printf("\nID: %d\t", sortedProcesses[i].ID );
                 // printf("AT: %d\t", sortedProcesses[i].arrivalTime);
                 // printf("BT: %d", sortedProcesses[i].burstTime);
+                counter[numCounter] = sortedProcesses[i].ID;  
+                numCounter++;  
+                break;   
             }
         }
+       
     }
 
     // Calculate completion time
@@ -63,19 +84,21 @@ void fcfs(process processes[], int numPro) {
     for(i = 0; i < numPro; i++) {
         
         waitingTime[i] = (completionTime[i] - sortedProcesses[i].arrivalTime) - sortedProcesses[i].burstTime;
-        printf("Waiting Time %d: %d\n", i + 1, waitingTime[i]);
+        //printf("\nWaiting Time %d: %d", i + 1, waitingTime[i]);
 
         totalWaitingTime += waitingTime[i];
     }
-    // printf("\nTotal waiting time: %d", totalWaitingTime);
+    
 
     // Print final values
-    // for(i = 0; i < numPro; i++) {
+    for(i = 0; i < numPro; i++) {
 
-    //     if(i == 0)
-    //         printf("P[%d] Start Time: %d End time: %d | Waiting time: %d\n", sortedProcesses[i].ID, 0, completionTime[i], waitingTime[i]);
-    //     else
-    //         printf("P[%d] Start Time: %d End time: %d | Waiting time: %d\n", sortedProcesses[i].ID, completionTime[i - 1], completionTime[i], waitingTime[i]);
-    // }
+        if(i == 0)
+            printf("P[%d] Start Time: %d End time: %d | Waiting time: %d\n", sortedProcesses[i].ID, 0, completionTime[i], waitingTime[i]);
+        else
+            printf("P[%d] Start Time: %d End time: %d | Waiting time: %d\n", sortedProcesses[i].ID, completionTime[i - 1], completionTime[i], waitingTime[i]);
+    }
+
+    printf("Average waiting time: %.1f", (float) totalWaitingTime / numPro);
 }      
 
