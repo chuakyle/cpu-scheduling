@@ -1,15 +1,6 @@
 #include "struct.h"
 
-// int comparator(const void *x, const void *y)
-// {
-// 	return (*(int *)x - *(int *)y);
-// }
-
-int comparator(const void *x, const void *y)
-{
-	return (*(int *)x - *(int *)y);
-}
-
+int comparator(const void *x, const void *y);
 /*
  *  Contains fcfs algorithm takes in 2 parameters: 
  *  array of processes variables and number of processes
@@ -17,7 +8,6 @@ int comparator(const void *x, const void *y)
 void fcfs(process processes[], int numPro) {
 
     int waitingTime[numPro];
-    int turnAroundTime[numPro];
     int completionTime[numPro];
     int sortedAT[numPro];
     int totalWaitingTime = 0;
