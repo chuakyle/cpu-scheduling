@@ -11,6 +11,8 @@ void rr(process processes[], int numPro, int timeSlice) {
     int allProcessesNotDone = 1;
     int waitingTime[numPro];
     int totalWaitingTime = 0;
+    int completionTime = 0;
+    int startTime[numPro];
     int copyBT[numPro];
     int time = 0;
 
@@ -48,9 +50,9 @@ void rr(process processes[], int numPro, int timeSlice) {
                 sortedProcesses[i].burstTime = processes[k].burstTime;
                 sortedProcesses[i].ID = processes[k].ID;
  
-                printf("\nID: %d\t", sortedProcesses[i].ID );
-                printf("AT: %d\t", sortedProcesses[i].arrivalTime);
-                printf("BT: %d", sortedProcesses[i].burstTime);
+                // printf("\nID: %d\t", sortedProcesses[i].ID );
+                // printf("AT: %d\t", sortedProcesses[i].arrivalTime);
+                // printf("BT: %d", sortedProcesses[i].burstTime);
                 counter[numCounter] = sortedProcesses[i].ID;  
                 numCounter++;  
                 break;   
@@ -62,31 +64,45 @@ void rr(process processes[], int numPro, int timeSlice) {
     for(i = 0; i < numPro; i++)
         copyBT[i] = sortedProcesses[i].burstTime;
 
+    numCounter = 0; // reuse counter variable  
+
     // Calculate waiting time    
     do
     {
         for(i = 0; i < numPro; i++) {
 
-            printf("\n copyBT[%d]: %d", i, copyBT[i]);
+            // printf("\n copyBT[%d]: %d", i, copyBT[i]);
             if(copyBT[i] > 0) { // Check if there are remaining burst time
 
-                printf("\nAT: %d <= time: %d ", sortedProcesses[i].arrivalTime, time);
+                // printf("\nAT: %d <= time: %d ", sortedProcesses[i].arrivalTime, time);
 
                 if(time >= sortedProcesses[i].arrivalTime){ // Check if process have arrived at current time
 
                     if(copyBT[i] > timeSlice) {
-                      printf("\n if check");  
+                    //   printf("\n if check");  
                       time += timeSlice;       
                       copyBT[i] -= timeSlice; 
                     }
 
                     else {
-                        printf("\n else check");  
+                        // printf("\n else check");  
                         time += copyBT[i];                                      
                         waitingTime[i] = time  -  sortedProcesses[i].arrivalTime - sortedProcesses[i].burstTime;   
                         totalWaitingTime += waitingTime[i];
-                        printf("\nWT[%d]: %d = time: %d - AT: %d - BT - %d", i, waitingTime[i], time, sortedProcesses[i].arrivalTime, sortedProcesses[i].burstTime);
+                        // printf("\nWT[%d]: %d = time: %d - AT: %d - BT - %d", i, waitingTime[i], time, sortedProcesses[i].arrivalTime, sortedProcesses[i].burstTime);
+                        
                         copyBT[i] = 0;
+
+                        completionTime = sortedProcesses[i].burstTime + sortedProcesses[i].arrivalTime + waitingTime[i];
+
+                        if(numCounter != 0) {
+                            startTime[numCounter + 1] = completionTime; // Assign current completion time as next's start time
+                            printf("P[%d] Start Time: %d End time: %d | Waiting time: %d\n", sortedProcesses[i].ID, startTime[numCounter], completionTime, waitingTime[i]);
+                        }
+                        else {
+                            startTime[numCounter + 1] = completionTime; // Assign current completion time as next's start time
+                            printf("P[%d] Start Time: %d End time: %d | Waiting time: %d\n", sortedProcesses[i].ID, 0, completionTime, waitingTime[i]);
+                        }
                         break;
                     }
                 }
@@ -95,7 +111,7 @@ void rr(process processes[], int numPro, int timeSlice) {
             
         }
        
-        numCounter = 0; // reuse counter variable  
+        numCounter = 0; // reset
 
         // Check if all processes are done
         for(i = 0; i < numPro; i++) {   
