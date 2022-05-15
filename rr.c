@@ -9,16 +9,16 @@ int comparator(const void *x, const void *y);
 void rr(process processes[], int numPro, int timeSlice) {
 
     int allProcessesNotDone = 1;
-    int waitingTime[numPro];
+    int waitingTime[MAX];
     int totalWaitingTime = 0;
     int completionTime = 0;
-    int startTime[numPro];
-    int copyBT[numPro];
+    int startTime[MAX];
+    int copyBT[MAX];
     int time = 0;
 
-    process sortedProcesses[numPro];
-    int counter[numPro];
-    int sortedAT[numPro];
+    process sortedProcesses[MAX];
+    int counter[MAX];
+    int sortedAT[MAX];
     int numCounter = 0;
     int checker = 1;
     int i, k, c;
