@@ -3,8 +3,8 @@
 void srtf(process processes[], int numPro)
 {
     int i;
-    int time, smallest, proCount = 0;
-    int hold[MAX], end[MAX], waitingTime[MAX];
+    int time, smallest, prevSmallest, proCount = 0;
+    int hold[MAX], start[MAX], end[MAX], waitingTime[MAX];
     int totalWaitingTime = 0;
     double aveWaitingTime = 0;
 
@@ -25,14 +25,20 @@ void srtf(process processes[], int numPro)
                 smallest = i;
             }
         }
+        if (smallest != prevSmallest)
+        {
+            end[prevSmallest] = time;
+            start[smallest] = time;
+        }
         processes[smallest].burstTime--;
         if (processes[smallest].burstTime == 0) // if process is done
         {
-            proCount++;                               // process counter
-            end[smallest] = time + 1;                 // end time
-            waitingTime[smallest] = totalWaitingTime; // waiting time
+            proCount++;                                                                 // process counter
+            end[smallest] = time + 1;                                                   // end time
+            waitingTime[smallest] = totalWaitingTime - processes[smallest].arrivalTime; // waiting time
             totalWaitingTime = totalWaitingTime + end[smallest] - processes[smallest].arrivalTime - hold[smallest];
         }
+        prevSmallest = smallest;
     }
     aveWaitingTime = totalWaitingTime / numPro;
 
