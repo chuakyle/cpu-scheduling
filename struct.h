@@ -1,6 +1,8 @@
 #ifndef STRUCT_H    
 #define STRUCT_H  
 
+#define MAX 100
+
 typedef struct 
 {
     int ID;
