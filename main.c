@@ -79,7 +79,7 @@ int main()
         // srtf(processes, Y[0]);
         break;
     case 3: // Round-Robin (RR)
-        rr(processes, Y[0]);
+        rr(processes, Y[0], Z[0]);
         break;
     }
 
