@@ -4,10 +4,10 @@ void sjf(process processes[], int numPro)
 {
     int i, j;
     int pos;
-    int temp[1];
+    int hold[1];
     int waitingTime[MAX], start[MAX], end[MAX];
     int totalWaitingTime = 0;
-    int aveWaitingTime;
+    float aveWaitingTime;
 
     // Sort burst time in ascending order
     for (i = 0; i < numPro; i++)
@@ -19,12 +19,12 @@ void sjf(process processes[], int numPro)
                 pos = j;
         }
 
-        temp[0] = processes[i].ID;
-        temp[1] = processes[i].burstTime;
+        hold[0] = processes[i].ID;
+        hold[1] = processes[i].burstTime;
         processes[i].ID = processes[pos].ID;
         processes[i].burstTime = processes[pos].burstTime;
-        processes[pos].ID = temp[0];
-        processes[pos].burstTime = temp[1];
+        processes[pos].ID = hold[0];
+        processes[pos].burstTime = hold[1];
     }
     waitingTime[0] = 0;
     start[0] = 0;
@@ -46,5 +46,5 @@ void sjf(process processes[], int numPro)
     {
         printf("P[%d] Start Time: %d End time: %d | Waiting time: %d\n", processes[i].ID, start[i], end[i], waitingTime[i]);
     }
-    printf("Average Waiting Time: %d", aveWaitingTime);
+    printf("Average Waiting Time: %.1f\n", aveWaitingTime);
 }
