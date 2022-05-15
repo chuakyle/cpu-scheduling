@@ -7,12 +7,12 @@ int comparator(const void *x, const void *y);
 */
 void fcfs(process processes[], int numPro) {
 
-    int waitingTime[numPro];
-    int completionTime[numPro];
-    int sortedAT[numPro];
+    int waitingTime[MAX];
+    int completionTime[MAX];
+    int sortedAT[MAX];
     int totalWaitingTime = 0;
-    process sortedProcesses[numPro];
-    int counter[numPro];
+    process sortedProcesses[MAX];
+    int counter[MAX];
     int numCounter = 0;
     int checker = 1;
     int i, k, c;

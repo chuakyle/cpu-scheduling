@@ -10,7 +10,7 @@
 int main()
 {
     FILE *pText;
-    char fileName[MAX] = "sample";
+    char fileName[MAX]; // = "sample";
 
     int i = 0;
     int k = 0;
@@ -21,8 +21,8 @@ int main()
 
     process processes[MAX];
 
-    // printf("Input file name: ");
-    // fgets(fileName, sizeof(fileName), stdin);
+    printf("Input file name: ");
+    fgets(fileName, sizeof(fileName), stdin);
 
     fileName[strcspn(fileName, "\n")] = 0; // Remove newline at the end of string
     strcat(fileName, ".txt");
